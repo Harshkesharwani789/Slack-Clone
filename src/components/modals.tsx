@@ -11,6 +11,7 @@ export const Modals = () => {
   }, []);
 
   if (!mounted) return null;
+
   return (
     <>
       <CreateWorkspaceModal />

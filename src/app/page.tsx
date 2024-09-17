@@ -23,6 +23,7 @@ export default function Home() {
       setOpen(true);
     }
   }, [workspaceId, isLoading, open, setOpen, router]);
+
   return (
     <div>
       <UserButton />
