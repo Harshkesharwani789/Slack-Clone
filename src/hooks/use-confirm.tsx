@@ -1,7 +1,5 @@
-import{useState} from "react"
-
-import { Button } from "@/components/ui/button"
-
+import { useState } from "react";
+import { Button } from "@/components/ui/button";
 import { 
   Dialog,
   DialogContent,
@@ -9,58 +7,50 @@ import {
   DialogFooter,
   DialogHeader,
   DialogTitle
- } from "@/components/ui/dialog"
+} from "@/components/ui/dialog";
 
 export const useConfirm = (
   title: string,
   message: string,
-):[()=>JSX.Element, ()=>Promise<unknown>]=>{
-  const [promise, setPromise]= useState<{resolve : (value:boolean)=> void} | null>(null);
-  const confirm = ()=>new Promise((resolve, reject)=>{
-    setPromise({resolve})
+): [() => JSX.Element, () => Promise<unknown>] => {
+  const [promise, setPromise] = useState<{ resolve: (value: boolean) => void } | null>(null);
+
+  const confirm = () => new Promise((resolve) => {
+    setPromise({ resolve });
   });
 
-  const handleClose = ()=>{
+  const handleClose = () => {
     setPromise(null);
   };
 
-  const handleCancel = ()=>{
+  const handleCancel = () => {
     promise?.resolve(false);
     handleClose();
-  }
-  const handleConfirm = ()=>{
+  };
+
+  const handleConfirm = () => {
     promise?.resolve(true);
     handleClose();
-  }
+  };
 
-  const ConfirmDialog = ()=>(
-    <Dialog open={promise !== null} >
+  const ConfirmDialog = () => (
+    <Dialog open={promise !== null}>
       <DialogContent className="bg-white text-black">
         <DialogHeader>
-          <DialogTitle>
-            {title}
-          </DialogTitle>
-          <DialogDescription>
-            {message}
-          </DialogDescription>
+          <DialogTitle>{title}</DialogTitle>
+          <DialogDescription>{message}</DialogDescription>
         </DialogHeader>
         <DialogFooter className="pt-2">
-          <Button
-            onClick={handleCancel}
-            variant="outline"
-          >
+          <Button onClick={handleCancel} variant="outline">
             Cancel
           </Button>
-          <Button
-            onClick={handleConfirm}
-          >
+          <Button onClick={handleConfirm}>
             Confirm
           </Button>
         </DialogFooter>
       </DialogContent>
     </Dialog>
-  )
+  );
 
-
-  return[ConfirmDialog, confirm]
+  return [ConfirmDialog, confirm];
 };

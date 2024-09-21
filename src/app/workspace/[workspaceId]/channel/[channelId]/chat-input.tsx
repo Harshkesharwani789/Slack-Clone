@@ -16,7 +16,6 @@ export const ChatInput = ({ placeholder }: ChatInputProps) => {
       <Editor
         placeholder={placeholder}
         onSubmit={() => {}}
-        onCancel={() => {}}
         disabled={false}
         innerRef={editorRef}
       />
