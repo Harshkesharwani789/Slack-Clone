@@ -1,14 +1,17 @@
 import { useState } from "react";
-import { Dialog , DialogContent, DialogDescription, DialogHeader, DialogTitle } from "@/components/ui/dialog";
+import { Dialog , DialogContent, DialogHeader, DialogTitle } from "@/components/ui/dialog";
 
 import { useCreateChannelModal } from "../store/use-create-channel-modal";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { useCreateChannel } from "../api/use-create-channel";
 import { useWorkspaceId } from "@/hooks/use-workspace-id";
+import { useRouter } from "next/navigation";
+import { toast } from "sonner";
 
 
 export const CreateChannelModal = ()=>{
+  const router = useRouter();
   const workspaceId = useWorkspaceId();
 
   const [open, setOpen] = useCreateChannelModal();
@@ -33,9 +36,13 @@ export const CreateChannelModal = ()=>{
       {name, workspaceId},
       {
         onSuccess: (id)=>{
-          //Todo : redirct to new chanel
+          toast.success("Channel created")
+          router.push(`/workspace/${workspaceId}/channel/${id}`);
           handleClose();
         },
+        onError: ()=> {
+          toast.error("Failed to create channel")
+        }
       },
     );
   };
@@ -43,7 +50,7 @@ export const CreateChannelModal = ()=>{
 
   return(
     <Dialog open={open} onOpenChange={handleClose} >
-      <DialogContent>
+      <DialogContent className="bg-white text-black">
         <DialogHeader>
           <DialogTitle>Add a channel</DialogTitle>
         </DialogHeader>
