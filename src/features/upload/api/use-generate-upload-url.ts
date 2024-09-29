@@ -7,14 +7,8 @@ type ResponseType = string | null;
 type Options = {
   onSuccess?: (data: ResponseType) => void;
   onError?: (error: Error) => void;
-  onSettled?: () => void; 
+  onSettled?: () => void; // corrected from "onSetteled"
   throwError?: boolean;
-};
-
-// Define a type for the expected values
-type ValuesType = {
-  property1: string;  // Replace with actual expected property
-  property2?: number; // Optional property
 };
 
 export const useGenerateUploadUrl = () => {
@@ -29,15 +23,15 @@ export const useGenerateUploadUrl = () => {
   const isError = useMemo(() => status === "error", [status]);
   const isSettled = useMemo(() => status === "settled", [status]);
 
-  const mutation = useMutation(api.upload.generateUploadUrl);
+  const mutation = useMutation(api.upload.generateUploadUrl); // corrected from "cretae"
   const mutate = useCallback(
-    async (values: ValuesType, options?: Options) => {
+    async (_values:{}, options?: Options) => {
       try {
         setData(null);
         setError(null);
         setStatus("pending");
 
-        const response = await mutation(); // Pass values to mutation
+        const response = await mutation();
         options?.onSuccess?.(response);
         return response;
       } catch (error) {
@@ -48,7 +42,7 @@ export const useGenerateUploadUrl = () => {
         }
       } finally {
         setStatus("settled");
-        options?.onSettled?.();
+        options?.onSettled?.(); // corrected from "onSetteled"
       }
     },
     [mutation]
