@@ -1,30 +1,33 @@
 import data from "@emoji-mart/data";
 import Picker from "@emoji-mart/react";
 import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
-import { Tooltip,TooltipContent,TooltipProvider, TooltipTrigger } from "@/components/ui/tooltip";
+import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/components/ui/tooltip";
 import { useState } from "react";
+// Import Emoji type from emoji-mart
+import { Emoji as EmojiType } from "@emoji-mart/data"; 
 
-interface EmojiPopoverProps{
+interface EmojiPopoverProps {
   children: React.ReactNode;
   hint?: string;
-  onEmojiSelect: (emoji: any) => void;
+  onEmojiSelect: (emoji: EmojiType) => void; // Use the imported EmojiType here
 }
 
 export const EmojiPopover = ({
   children,
-  hint="Emoji",
-  onEmojiSelect
-}: EmojiPopoverProps)=>{
-  const[popoverOpen, setPopoverOpen] = useState(false);
-  const[tooltipOpen, setTooltipOpen] = useState(false);
+  hint = "Emoji",
+  onEmojiSelect,
+}: EmojiPopoverProps) => {
+  const [popoverOpen, setPopoverOpen] = useState(false);
+  const [tooltipOpen, setTooltipOpen] = useState(false);
 
-  const onSelect = (emoji: any) =>{
+  const onSelect = (emoji: EmojiType) => { // Use the imported EmojiType here
     onEmojiSelect(emoji);
     setPopoverOpen(false);
-    setTimeout(()=>{
+    setTimeout(() => {
       setTooltipOpen(false);
-    },500)
-  }
+    }, 500);
+  };
+
   return (
     <div>
       <TooltipProvider>
@@ -39,9 +42,9 @@ export const EmojiPopover = ({
                 {children}
               </TooltipTrigger>
             </PopoverTrigger>
-              <TooltipContent className="bg-black text-white border-white/5">
-                <p className="font-medium text-xs">{hint}</p>
-              </TooltipContent>
+            <TooltipContent className="bg-black text-white border-white/5">
+              <p className="font-medium text-xs">{hint}</p>
+            </TooltipContent>
           </Tooltip>
           <PopoverContent className="p-0 w-full border-none shadow-none">
             <Picker data={data} onEmojiSelect={onSelect} />

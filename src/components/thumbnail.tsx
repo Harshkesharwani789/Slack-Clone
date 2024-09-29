@@ -1,18 +1,15 @@
-import{
+import {
   Dialog,
   DialogContent,
-  DialogHeader,
-  DialogTitle,
   DialogTrigger,
-} from "@/components/ui/dialog"
-import { XIcon } from "lucide-react";
+} from "@/components/ui/dialog";
 
 interface ThumbnailProps {
   url: string | null | undefined;
-};
+}
 
-export const Thumbnail = ({url}: ThumbnailProps)=>{
-  if(!url){
+export const Thumbnail = ({ url }: ThumbnailProps) => {
+  if (!url) {
     return null;
   }
   return (
@@ -34,5 +31,5 @@ export const Thumbnail = ({url}: ThumbnailProps)=>{
         />
       </DialogContent>
     </Dialog>
-  )
+  );
 };
