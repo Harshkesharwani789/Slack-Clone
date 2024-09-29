@@ -11,8 +11,10 @@ import { WorkspaceSection } from "./workspace-section";
 import { useGetMembers } from "@/features/members/api/use-get-members";
 import { UserItem } from "./user-item";
 import { useCreateChannelModal } from "@/features/channels/store/use-create-channel-modal";
+import { useMemberId } from "@/hooks/use-member-id";
 
 export const WorkspaceSidebar = () => {
+  const memberId = useMemberId();
   const channelId = useChannelId();
   const workspaceId = useWorkspaceId();
   const [, setOpen] = useCreateChannelModal();  // Removed unused _open variable
@@ -84,6 +86,7 @@ export const WorkspaceSidebar = () => {
             key={item._id}
             id={item._id}
             label={item.user.name}
+            variant={item._id === memberId ? "active" : "default"}
           />
         ))}
       </WorkspaceSection>

@@ -144,10 +144,6 @@ export const getById = query({
 
     return channel;
 
-
-
-
-
   },
 })
 
