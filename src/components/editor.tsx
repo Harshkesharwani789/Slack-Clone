@@ -13,13 +13,16 @@ import "quill/dist/quill.snow.css";
 import { cn } from "@/lib/utils";
 import Image from "next/image";
 
+// Import the Emoji type from @emoji-mart/data
+import { Emoji as EmojiType } from "@emoji-mart/data"; 
+
 type EditorValue = {
   image: File | null;
   body: string;
 };
 
 interface EditorProps {
-  onCancel: ()=> void;
+  onCancel: () => void;
   onSubmit: ({ image, body }: EditorValue) => void;
   placeholder?: string;
   defaultValue?: Delta | Op[];
@@ -29,7 +32,7 @@ interface EditorProps {
 }
 
 const Editor = ({
-  onCancel, 
+  onCancel,
   onSubmit,
   placeholder = "Write something...",
   defaultValue = [],
@@ -79,12 +82,12 @@ const Editor = ({
               key: "Enter",
               handler: () => {
                 const text = quill.getText();
-                const addedImage = imageElementRef.current?.files?.[0]|| null;
+                const addedImage = imageElementRef.current?.files?.[0] || null;
                 const isEmpty = !addedImage && text.replace(/<(.|\n)*?>/g, "").trim().length === 0;
-                if(isEmpty) return;
+                if (isEmpty) return;
 
                 const body = JSON.stringify(quill.getContents());
-                submitRef.current?.({body, image:addedImage})
+                submitRef.current?.({ body, image: addedImage });
               },
             },
             shift_enter: {
@@ -137,10 +140,12 @@ const Editor = ({
       toolbarElement.classList.toggle("hidden");
     }
   };
-  const onEmojiSelect = (emoji: any)=>{
+
+  // Use the Emoji type imported from @emoji-mart/data
+  const onEmojiSelect = (emoji: EmojiType) => {
     const quill = quillRef.current;
-    quill?.insertText(quill?.getSelection()?. index || 0, emoji.native)
-  }
+    quill?.insertText(quill?.getSelection()?.index || 0, emoji.name);
+  };
 
   const isEmpty = !image && text.replace(/<(.|\n)*?>/g, "").trim().length === 0;
 
@@ -149,26 +154,27 @@ const Editor = ({
       <input
         type="file"
         accept="image/*"
-        ref = {imageElementRef}
-        onChange={(event)=> setImage(event.target.files![0])}
+        ref={imageElementRef}
+        onChange={(event) => setImage(event.target.files![0])}
         className="hidden"
       />
       <div className={cn(
         "flex flex-col border border-slate-200 rounded-md overflow-hidden focus-within:border-slate-300 focus-within:shadow-sm transition bg-white",
         disabled && "opacity-50"
-        )}>
+      )}>
         <div ref={containerRef} className="h-full ql-custom" />
         {!!image && (
           <div className="p-2">
             <div className="relative size-[62px] flex items-center justify-center group/image">
               <Button
-                onClick={()=>{
+                onClick={() => {
                   setImage(null);
-                  imageElementRef.current!.value ="";
+                  imageElementRef.current!.value = "";
                 }}
                 className="hidden group-hover/image:flex rounded-full bg-black/70 hover:bg-black absolute -top-2.5 -right-2.5 text-white size-6 z-[4] border-2 border-white items-center justify-center"
-              >X
-                <XIcon className="size-3.5 "/>
+              >
+                X
+                <XIcon className="size-3.5 " />
               </Button>
               <Image
                 src={URL.createObjectURL(image)}
@@ -222,12 +228,12 @@ const Editor = ({
                 Cancel
               </Button>
               <Button
-                disabled={disabled || isEmpty}          
+                disabled={disabled || isEmpty}
                 onClick={() => {
                   onSubmit({
                     body: JSON.stringify(quillRef.current?.getContents()),
-                  image,
-                  })
+                    image,
+                  });
                 }}
                 size="sm"
                 className="bg-[#007a5a] hover:bg-[#007a5a]/80 text-white"
@@ -242,8 +248,8 @@ const Editor = ({
               onClick={() => {
                 onSubmit({
                   body: JSON.stringify(quillRef.current?.getContents()),
-                image,
-                })
+                  image,
+                });
               }}
               size="iconSm"
               className={cn(
@@ -260,12 +266,10 @@ const Editor = ({
       </div>
       {variant === "create" && (
         <div className={cn(
-          "p-2 text-[10px] text-muted-foreground flex justify-end opacity-0 transition",
-          !isEmpty && "opacity-100"
-          )}>
-          <p>
-            <strong>Shift + Return</strong> to add a new line
-          </p>
+          "p-2 text-[10px] text-muted-foreground flex items-center",
+          isEmpty && "hidden"
+        )}>
+          <span>Press Enter to send</span>
         </div>
       )}
     </div>
