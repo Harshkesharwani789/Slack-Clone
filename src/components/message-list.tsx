@@ -21,6 +21,7 @@ interface MessageListProps {
   loadMore: () => void;
   isLoadingMore: boolean;
   canLoadMore: boolean;
+   memberId: Id<"members">;
 }
 
 const formatDateLabel = (dateStr: string) => {
@@ -88,6 +89,7 @@ export const MessageList = ({
                 reactions={message.reactions}
                 body={message.body}
                 image={message.image}
+                memberId={message.memberId}
                 updatedAt={message.updatedAt}
                 createdAt={message._creationTime}
                 isEditing={editingId === message._id}

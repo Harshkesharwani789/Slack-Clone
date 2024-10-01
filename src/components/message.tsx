@@ -20,6 +20,7 @@ const Renderer = dynamic(() => import("@/components/renderer"), { ssr: false });
 const Editor = dynamic(() => import("@/components/editor"), { ssr: false });
 
 interface MessageProps {
+  memberId: Id<"members">;
   id: Id<"messages">;
   authorImage?: string;
   authorName?: string;

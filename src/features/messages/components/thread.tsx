@@ -234,6 +234,7 @@ export const Thread = ({ messageId, onClose }: ThreadProps) => {
         )}
         <Message
           hideThreadButton
+          memberId={message.message.memberId}
           authorImage={message.user.image}
           authorName={message.user.name}
           isAuthor={message.message.memberId === currentMember?._id}
