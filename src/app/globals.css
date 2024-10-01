@@ -18,13 +18,39 @@ body {
   color: var(--foreground);
   background: var(--background);
   font-family: Arial, Helvetica, sans-serif;
+  font-size: 16px; /* Base font size */
+}
+
+@media (max-width: 600px) {
+  body {
+    font-size: 14px; /* Smaller font size for mobile */
+  }
+}
+
+@media (min-width: 768px) {
+  body {
+    font-size: 18px; /* Larger font size for tablets and above */
+  }
 }
 
 @layer utilities {
   .text-balance {
     text-wrap: balance;
   }
+
+  .container {
+    display: flex;
+    flex-direction: column; /* Stacks items vertically on smaller screens */
+    padding: 16px;
+  }
+
+  @media (min-width: 768px) {
+    .container {
+      flex-direction: row; /* Arranges items side-by-side on larger screens */
+    }
+  }
 }
+
 html,
 body,
 :root {
@@ -59,6 +85,7 @@ body,
     --chart-5: 27 87% 67%;
     --radius: 0.5rem;
   }
+  
   .dark {
     --background: 222.2 84% 4.9%;
     --foreground: 210 40% 98%;
@@ -91,28 +118,42 @@ body,
   * {
     @apply border-border;
   }
+  
   body {
     @apply bg-background text-foreground;
   }
 }
 
-.ql-toolbar{
-border: none !important; 
-background-color: #f8f8f8 !important;
+.ql-toolbar {
+  border: none !important; 
+  background-color: #f8f8f8 !important;
+  padding: 8px; /* Add padding for better spacing */
 }
 
-.ql-toolbar .ql-formats:not(:last-child){
+@media (max-width: 600px) {
+  .ql-toolbar {
+    padding: 4px; /* Less padding on mobile */
+  }
+}
+
+@media (min-width: 768px) {
+  .ql-toolbar {
+    padding: 12px; /* More padding on larger screens */
+  }
+}
+
+.ql-toolbar .ql-formats:not(:last-child) {
   border-right: 1px solid #dcdcdc !important;
   padding-right: 12px !important;
 }
 
-.ql-container{
+.ql-container {
   font-family: "lato", sans-serif !important;
   border: none !important;
   height: unset !important;
 }
 
-.ql-editor{
+.ql-editor {
   line-height: 22px !important;
   padding: 8px !important;
   color: #1d1c1d !important;
@@ -121,19 +162,33 @@ background-color: #f8f8f8 !important;
   font-size: 14px !important;
 }
 
-.ql-editor a{
+@media (max-width: 600px) {
+  .ql-editor {
+    padding: 4px !important; /* Less padding on mobile */
+    font-size: 12px !important; /* Smaller font size for mobile */
+  }
+}
+
+@media (min-width: 768px) {
+  .ql-editor {
+    padding: 12px !important; /* More padding on larger screens */
+    font-size: 16px !important; /* Larger font size for tablets and above */
+  }
+}
+
+.ql-editor a {
   color: #1264a3 !important;
 }
 
-.ql-editor a:hover{
+.ql-editor a:hover {
   text-decoration: underline !important;
 }
 
-.ql-renderer{
+.ql-renderer {
   padding: 0 !important;
 }
 
-.ql-editor:before{
+.ql-editor:before {
   left: 12px !important;
   font-family: "lato", sans-serif !important;
   color: #8d8d8d !important;
@@ -143,8 +198,13 @@ background-color: #f8f8f8 !important;
   @apply truncate;
 }
 
-.messages-scrollbar{
+.messages-scrollbar {
   scrollbar-width: thin;
   scrollbar-color: #dcdcdc #f8f8f8;
+}
 
+@media (max-width: 600px) {
+  .messages-scrollbar {
+    scrollbar-width: auto; /* Default scrollbar for mobile */
+  }
 }

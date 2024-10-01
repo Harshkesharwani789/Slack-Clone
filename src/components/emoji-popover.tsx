@@ -9,19 +9,19 @@ import { Emoji as EmojiType } from "@emoji-mart/data";
 interface EmojiPopoverProps {
   children: React.ReactNode;
   hint?: string;
-  onEmojiSelect: (emoji: EmojiType) => void; // Use the imported EmojiType here
+  onEmojiSelected: (emoji: EmojiType) => void; // Use the imported EmojiType here
 }
 
 export const EmojiPopover = ({
   children,
   hint = "Emoji",
-  onEmojiSelect,
+  onEmojiSelected,
 }: EmojiPopoverProps) => {
   const [popoverOpen, setPopoverOpen] = useState(false);
   const [tooltipOpen, setTooltipOpen] = useState(false);
 
   const onSelect = (emoji: EmojiType) => { // Use the imported EmojiType here
-    onEmojiSelect(emoji);
+    onEmojiSelected(emoji);
     setPopoverOpen(false);
     setTimeout(() => {
       setTooltipOpen(false);

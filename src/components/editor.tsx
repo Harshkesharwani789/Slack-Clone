@@ -190,7 +190,7 @@ const Editor = ({
               <PiTextAa className="size-4" />
             </Button>
           </Hint>
-          <EmojiPopover onEmojiSelect={onEmojiSelect}>
+          <EmojiPopover onEmojiSelected={onEmojiSelect}>
             <Button
               disabled={disabled}
               size="iconSm"
