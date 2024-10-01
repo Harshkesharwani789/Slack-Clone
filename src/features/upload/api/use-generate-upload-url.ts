@@ -7,7 +7,7 @@ type ResponseType = string | null;
 type Options = {
   onSuccess?: (data: ResponseType) => void;
   onError?: (error: Error) => void;
-  onSettled?: () => void; // corrected from "onSetteled"
+  onSettled?: () => void;
   throwError?: boolean;
 };
 
@@ -23,26 +23,29 @@ export const useGenerateUploadUrl = () => {
   const isError = useMemo(() => status === "error", [status]);
   const isSettled = useMemo(() => status === "settled", [status]);
 
-  const mutation = useMutation(api.upload.generateUploadUrl); // corrected from "cretae"
+  const mutation = useMutation(api.upload.generateUploadUrl);
+
   const mutate = useCallback(
-    async (_values:{}, options?: Options) => {
+    async (_values: Record<string, unknown>, options?: Options) => {
       try {
         setData(null);
         setError(null);
         setStatus("pending");
 
         const response = await mutation();
+        setData(response);
         options?.onSuccess?.(response);
         return response;
       } catch (error) {
         setStatus("error");
+        setError(error as Error);
         options?.onError?.(error as Error);
         if (options?.throwError) {
           throw error;
         }
       } finally {
         setStatus("settled");
-        options?.onSettled?.(); // corrected from "onSetteled"
+        options?.onSettled?.();
       }
     },
     [mutation]
