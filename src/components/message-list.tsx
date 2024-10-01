@@ -21,7 +21,6 @@ interface MessageListProps {
   loadMore: () => void;
   isLoadingMore: boolean;
   canLoadMore: boolean;
-   memberId: Id<"members">;
 }
 
 const formatDateLabel = (dateStr: string) => {
