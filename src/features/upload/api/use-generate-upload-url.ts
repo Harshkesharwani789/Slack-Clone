@@ -25,7 +25,7 @@ export const useGenerateUploadUrl = () => {
 
   const mutation = useMutation(api.upload.generateUploadUrl); // corrected from "cretae"
   const mutate = useCallback(
-    async (_values:any, options?: Options) => {
+    async (_values:{}, options?: Options) => {
       try {
         setData(null);
         setError(null);
