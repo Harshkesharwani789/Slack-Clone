@@ -137,9 +137,9 @@ const Editor = ({
       toolbarElement.classList.toggle("hidden");
     }
   };
-  const onEmojiSelect = (emoji: any)=>{
+  const onEmojiSelect = ()=>{
     const quill = quillRef.current;
-    quill?.insertText(quill?.getSelection()?. index || 0, emoji.native)
+    quill?.insertText(quill?.getSelection()?. index || 0, "")
   }
 
   const isEmpty = !image && text.replace(/<(.|\n)*?>/g, "").trim().length === 0;
@@ -190,7 +190,7 @@ const Editor = ({
               <PiTextAa className="size-4" />
             </Button>
           </Hint>
-          <EmojiPopover onEmojiSelected={onEmojiSelect}>
+          <EmojiPopover onEmojiSelect={onEmojiSelect}>
             <Button
               disabled={disabled}
               size="iconSm"
