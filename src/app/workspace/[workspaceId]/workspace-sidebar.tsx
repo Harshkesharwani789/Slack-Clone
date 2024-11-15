@@ -1,4 +1,4 @@
-import { AlertTriangle, HashIcon, Loader, MessageSquareText, SendHorizonal } from "lucide-react";
+import { AlertTriangle, HashIcon, Loader } from "lucide-react"; // Removed unused imports
 import { useCurrentMember } from "@/features/members/api/use-current-member";
 import { useGetWorkspace } from "@/features/workspaces/api/use-get-workspace";
 import { useGetChannels } from "@/features/channels/api/use-get-channels";
@@ -49,21 +49,6 @@ export const WorkspaceSidebar = () => {
   return (
     <div className="flex flex-col bg-[#5E2C5F] h-full">
       <WorkspaceHeader workspace={workspace} isAdmin={member.role === "admin"} />
-      <div className="flex flex-col px-2 mt-3">
-        {/* Removed onClick handlers for Threads and Drafts & Sent */}
-        {/* <SidebarItem
-          label="Threads"
-          icon={MessageSquareText}
-          id="threads"
-          // No onClick handler anymore
-        />
-        <SidebarItem
-          label="Drafts & Sent"
-          icon={SendHorizonal}
-          id="drafts"
-          // No onClick handler anymore
-        /> */}
-      </div>
       <WorkspaceSection
         label="Channels"
         hint="New channel"
