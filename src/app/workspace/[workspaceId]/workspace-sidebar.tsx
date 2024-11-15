@@ -50,16 +50,19 @@ export const WorkspaceSidebar = () => {
     <div className="flex flex-col bg-[#5E2C5F] h-full">
       <WorkspaceHeader workspace={workspace} isAdmin={member.role === "admin"} />
       <div className="flex flex-col px-2 mt-3">
-        <SidebarItem
+        {/* Removed onClick handlers for Threads and Drafts & Sent */}
+        {/* <SidebarItem
           label="Threads"
           icon={MessageSquareText}
           id="threads"
+          // No onClick handler anymore
         />
         <SidebarItem
           label="Drafts & Sent"
           icon={SendHorizonal}
           id="drafts"
-        />
+          // No onClick handler anymore
+        /> */}
       </div>
       <WorkspaceSection
         label="Channels"
